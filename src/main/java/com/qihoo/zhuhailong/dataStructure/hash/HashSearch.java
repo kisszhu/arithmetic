@@ -1,4 +1,4 @@
-package com.qihoo.zhuhailong.dataStructure;
+package com.qihoo.zhuhailong.dataStructure.hash;
 
 /**
  * Created by zhuhailong-dc on 2018/3/12.
