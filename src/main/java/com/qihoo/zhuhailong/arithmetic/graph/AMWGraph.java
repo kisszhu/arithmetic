@@ -165,7 +165,7 @@ public class AMWGraph {
         graph.insertEdge(2, 5, 1);
         graph.insertEdge(2, 6, 1);
         graph.insertEdge(5, 6, 1);
-        
+
 
         System.out.println("深度优先搜索序列为：");
         graph.depthFirstSearch(isVisited);
