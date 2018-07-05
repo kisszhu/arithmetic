@@ -10,13 +10,11 @@ public class SelectSort {
         selectSort(new int[]{2, 5, 7, 9, 0, 1});
     }
 
-
     /**
      * 简单选择排序：
      * 是最简单直观的一种算法，基本思想为每一趟从待排序的数组元素中选择最小（或最大）的元素作为首元素，
      * 直到所有元素排完为止，简单选择排序是不稳定排序。
      */
-
     public static void selectSort(int[] arr) {
         for (int i = 0; i < arr.length - 1; i++) {
             /**
