@@ -195,14 +195,35 @@ public class AdjMatrixGraph<E> {
         }
     }
 
+//    以上是对广度优先搜索以及以广度优先搜索为基础的dijkstra算法的讲解，dijkstra算法的缺点如下：
+//    a.盲目搜索导致的时间浪费和资源浪费
+//    b.不能处理边权值为负的情况，因为导致上述算法中求得的最短路径未必是最短路径。
+//
+//            1.将图上的初始点看作一个集合S，其它点看作另一个集合
+//
+//    2.根据初始点，求出其它点到初始点的距离d[i] （若相邻，
+//    则d[i]为边权值；若不相邻，则d[i]为无限大）
+//
+//                3.选取最小的d[i]（记为d[x]），并将此d[i]边对应的点
+//        （记为x）加入集合S
+//
+//    4.再根据x，更新跟 x 相邻点 y 的d[y]值：d[y] = min{
+//        d[y], d[x] + 边权值w[x][y] }，因为可能把距离调小，所以这个更新操作叫做松弛操作。
+//
+//                5.重复3，4两步，直到目标点也加入了集合，此时目标点所
+//    对应的d[i]即为最短路径长度
+
     /**
      * 图的最短路径 Dijkstra算法
+     * Dijkstra算法的缺点如下：
+     * 1、
      */
     public void dijkstra() {
         int n = this.vertexCount();
-        // 权重
+        // 当前最小权重
         int minWeight = MAX_WEIGHT;
 
+        // 当前最小顶点
         int minUn = 0;
 
         // 存放当前起始点到其余各个顶点的距离
@@ -214,15 +235,20 @@ public class AdjMatrixGraph<E> {
         // 每个字符串显示对应顶点最短距离的路径
         String[] route = new String[n];
 
-        for (int i = 0; i < n; i++) {
+        // 初始化数据
+        for (int i = 1; i < n; i++) {
+            // 初始化距离数据
             minMatrix[i] = adjMatrix[0][i];
+            // 初始化节点访问
             isVisit[i] = false;
+            // 初始化图的路由
             route[i] = "起点->" + i;
         }
 
         for (int i = 0; i < n; i++) {
-            // 选择当前和起点连通的，且值最小的顶点
-            for (int k = 0; k < n; k++) {
+            // 开局：因为Dijkstra只能用来处理正权，所以我们直接选择一个最小距离的顶点作为程序的入口
+            // 备注：如果涉及到负权的话，两点之间最短的距离，就可能不是最短的了
+            for (int k = 1; k < n; k++) {
                 if (!isVisit[k]) {
                     if (minMatrix[k] < minWeight) {
                         minWeight = minMatrix[k];
@@ -232,10 +258,10 @@ public class AdjMatrixGraph<E> {
             }
 
             isVisit[minUn] = true;
-            for (int j = 0; j < n; j++) {
-                if (isVisit[j]) {
+            for (int j = 1; j < n; j++) {
+                if (!isVisit[j]) {
+                    // 查看 v0 -> vk + vk -> vj的距离是否小于 vo -> vj的距离，如果小于则交换
                     if (minWeight + adjMatrix[minUn][j] < minMatrix[j]) {
-                        // 通过当下最小值访问到的其他顶点的距离小于原先的最小值，则进行交换
                         minMatrix[j] = minWeight + adjMatrix[minUn][j];
                         route[j] = route[minUn] + "->" + j;
                     }
