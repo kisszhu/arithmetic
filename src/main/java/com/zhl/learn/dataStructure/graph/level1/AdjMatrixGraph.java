@@ -33,7 +33,7 @@ public class AdjMatrixGraph<E> {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                //TODO 对角线上为0，其余都为无穷大
+                // 对角线上为0，其余都为无穷大
                 this.adjMatrix[i][j] = (i == j) ? 0 : MAX_WEIGHT;
             }
         }
@@ -195,28 +195,17 @@ public class AdjMatrixGraph<E> {
         }
     }
 
-//    以上是对广度优先搜索以及以广度优先搜索为基础的dijkstra算法的讲解，dijkstra算法的缺点如下：
-//    a.盲目搜索导致的时间浪费和资源浪费
-//    b.不能处理边权值为负的情况，因为导致上述算法中求得的最短路径未必是最短路径。
-//
-//            1.将图上的初始点看作一个集合S，其它点看作另一个集合
-//
-//    2.根据初始点，求出其它点到初始点的距离d[i] （若相邻，
-//    则d[i]为边权值；若不相邻，则d[i]为无限大）
-//
-//                3.选取最小的d[i]（记为d[x]），并将此d[i]边对应的点
-//        （记为x）加入集合S
-//
-//    4.再根据x，更新跟 x 相邻点 y 的d[y]值：d[y] = min{
-//        d[y], d[x] + 边权值w[x][y] }，因为可能把距离调小，所以这个更新操作叫做松弛操作。
-//
-//                5.重复3，4两步，直到目标点也加入了集合，此时目标点所
-//    对应的d[i]即为最短路径长度
-
     /**
      * 图的最短路径 Dijkstra算法
      * Dijkstra算法的缺点如下：
-     * 1、
+     * 1、不能处理边权值为负的情况，因为会导致算法中求得的最短路径未必是最短路径
+     * <p>
+     * 算法详解：
+     * 1、将图上初始点看作一个集合S，其它点看作另一个集合
+     * 2、根据初始点，求出其它点到初始点的距离d[i]（若相邻，则d[i]为边权值；若不相邻，则d[i]为无限大）
+     * 3、选取最小的d[i]（记为d[x]），并将d[i]边对应的点(记为x)加入集合S
+     * 4、在根据x，更新跟x相邻点y的d[y]值：d[y] = min{d[y],d[x]+边权值w[x][y]}，因为可能把距离调小，所以这个更新操作叫做松弛操作
+     * 5、重复3,4两步，直到目标点也加入了集合，此时目标点所对应的d[i]记为最短路径长度
      */
     public void dijkstra() {
         int n = this.vertexCount();
@@ -259,6 +248,7 @@ public class AdjMatrixGraph<E> {
 
             isVisit[minUn] = true;
             for (int j = 1; j < n; j++) {
+                // 已经访问过的节点，就不再需要比较了
                 if (!isVisit[j]) {
                     // 查看 v0 -> vk + vk -> vj的距离是否小于 vo -> vj的距离，如果小于则交换
                     if (minWeight + adjMatrix[minUn][j] < minMatrix[j]) {
@@ -280,6 +270,41 @@ public class AdjMatrixGraph<E> {
         }
     }
 
+    /**
+     * 图的连通性
+     * 连通性：从顶点i 到 顶点j 有路径相连，则称i 到 j是连通的
+     * 连通图（无向图）：如果图中任意两点都是相连的，则称 连通图
+     * 强连通图（有向图）：如果图中任意两点都是相连的，则称 强连通图（注意存在两个方向）
+     */
+    public boolean isConnect() {
+        int n = this.vertexCount();
+        boolean[] visited = new boolean[n];
+
+        // 记录不能一次深度优先遍历通过的数目
+        // 全部顶点作为出发点开始遍历，如果全部都不能一次遍历通过（notConnectNum == 0），说明该图不连通
+        int notConnectNum = 0;
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i < n; i++) {
+                visited[i] = false;
+            }
+            this.dfs(j, visited);
+            for (int k = 0; k < n; k++) {
+                System.out.println(visited[k]);
+                if (visited[k] == false) {
+                    // 一旦有没有被遍历到的顶点（说明该顶点不属于该连通分量），跳出循环
+                    notConnectNum++;
+                    break;
+                }
+            }
+        }
+        if (notConnectNum == n) {
+            System.out.println("此图是不连通的");
+            return false;
+        } else {
+            System.out.println("此图是连通的");
+            return true;
+        }
+    }
 
     /**
      * 最小生成树
@@ -350,61 +375,7 @@ public class AdjMatrixGraph<E> {
 //
 //
 //
-//// -------五，图的连通性-------------------------//
-//
-//    public boolean isConnect() {
-//
-//        int n = this.vertexCount();
-//
-//        boolean[] visited = new boolean[n];
-//
-//// 记录不能一次深度优先遍历通过的数目
-//
-//// 全部顶点作为出发点开始遍历，如果全部都不能一次遍历通过（notConnectNum == n），说明该图不连通。
-//
-//        int notConnectNum = 0;
-//
-//        for (int j = 0; j < n; j++) {
-//
-//            for (int i = 0; i < n; i++) {
-//
-//                visited[i] = false;
-//
-//            }
-//
-//            this.DFS(j, visited);
-//
-//            for (int k = 0; k < n; k++) {
-//
-//                System.out.println(visited[k]);
-//
-//                if (visited[k] == false) {
-//
-//                    notConnectNum++;
-//
-//                    break;// 一旦有没有被遍历到的顶点（说明该顶点不属于该连通分量），跳出循环
-//
-//                }
-//
-//            }
-//
-//        }
-//
-//        if (notConnectNum == n) {
-//
-//            System.out.println("此图是不连通的");
-//
-//            return false;
-//
-//        } else {
-//
-//            System.out.println("此图是连通的");
-//
-//            return true;
-//
-//        }
-//
-//    }
+
 //
 //
 //

@@ -1,6 +1,5 @@
 package com.zhl.learn.dataStructure.graph.level1;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,22 +41,22 @@ public class AdjMatrixGraphTest {
 
         System.out.println(graph.toString());
 
-        // 移动顶点
+        // -----------------移动顶点--------------------
         /// graph.removeVertex(1);
         /// System.out.println(graph.toString());
 
-        // 最小生成树-普里姆算法
+        // -----------------最小生成树-普里姆算法------------------
         /// AdjMatrixGraph minGraph = graph.minSpanTreePrim();
         /// System.out.println(minGraph.toString());
 
-        // 深度遍历
+        // -----------------深度遍历--------------------
         /// graph.dfStraverse();
 
-        // 广度遍历
+        // -----------------广度遍历--------------------
         /// graph.bfStraverse();
 
-        // 最短路径
-        graph.dijkstra();
+        // -----------------最短路径--------------------
+        // graph.dijkstra();
         // 从结果来看，代码应该是存在问题，0 -> 2的最短路径应该是 0 -> 1 -> 2 = 12 + 23 = 35
         // 邻接矩阵：
         // 0        12        99        ∞
@@ -73,5 +72,9 @@ public class AdjMatrixGraphTest {
         // 当前从V0出发到达该店的最短距离：起点->2
         // 从V0出发到底3点
         // 没有到达该点的路径
+
+        // -----------------图的连通性--------------------
+        boolean isConnect = graph.isConnect();
+        System.out.println("图的连通性为： " + isConnect);
     }
 }
