@@ -15,7 +15,7 @@ public class AdjMatrixGraphTest {
         Vertex node1 = new Vertex(0, "节点1");
         Vertex node2 = new Vertex(1, "节点2");
         Vertex node3 = new Vertex(2, "节点3");
-        Vertex node4 = new Vertex(4, "节点4");
+        Vertex node4 = new Vertex(3, "节点4");
 
 
         Edge edge1 = new Edge(0, 1, 12);
@@ -42,21 +42,21 @@ public class AdjMatrixGraphTest {
         System.out.println(graph.toString());
 
         // -----------------移动顶点--------------------
-        /// graph.removeVertex(1);
-        /// System.out.println(graph.toString());
+        graph.removeVertex(1);
+        System.out.println(graph.toString());
 
         // -----------------最小生成树-普里姆算法------------------
-        /// AdjMatrixGraph minGraph = graph.minSpanTreePrim();
-        /// System.out.println(minGraph.toString());
+        AdjMatrixGraph minGraph = graph.minSpanTreePrim();
+        System.out.println(minGraph.toString());
 
         // -----------------深度遍历--------------------
-        /// graph.dfStraverse();
+        graph.dfStraverse();
 
         // -----------------广度遍历--------------------
-        /// graph.bfStraverse();
+        graph.bfStraverse();
 
         // -----------------最短路径--------------------
-        // graph.dijkstra();
+        graph.dijkstra();
         // 从结果来看，代码应该是存在问题，0 -> 2的最短路径应该是 0 -> 1 -> 2 = 12 + 23 = 35
         // 邻接矩阵：
         // 0        12        99        ∞
@@ -76,5 +76,24 @@ public class AdjMatrixGraphTest {
         // -----------------图的连通性--------------------
         boolean isConnect = graph.isConnect();
         System.out.println("图的连通性为： " + isConnect);
+
+        // -----------------图的拓扑排序--------------------
+        edge1 = new Edge(0, 1, 12);
+        edge2 = new Edge(1, 2, 23);
+        edge3 = new Edge(2, 3, 34);
+
+        nodes = new ArrayList();
+        nodes.add(node1);
+        nodes.add(node2);
+        nodes.add(node3);
+        nodes.add(node4);
+
+        edges = new Edge[3];
+        edges[0] = edge1;
+        edges[1] = edge2;
+        edges[2] = edge3;
+
+        graph = new AdjMatrixGraph(nodes, edges);
+        graph.topologicalSort();
     }
 }

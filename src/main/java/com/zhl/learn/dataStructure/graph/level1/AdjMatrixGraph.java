@@ -1,8 +1,6 @@
 package com.zhl.learn.dataStructure.graph.level1;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
@@ -280,8 +278,7 @@ public class AdjMatrixGraph<E> {
         int n = this.vertexCount();
         boolean[] visited = new boolean[n];
 
-        // 记录不能一次深度优先遍历通过的数目
-        // 全部顶点作为出发点开始遍历，如果全部都不能一次遍历通过（notConnectNum == 0），说明该图不连通
+        // 在无向图中，通过图的深度遍历，看是否存在没有遍历到的顶点，如果每次的深度遍历都存在没有遍历到的顶点的话，则说明图不是连通的
         int notConnectNum = 0;
         for (int j = 0; j < n; j++) {
             for (int i = 0; i < n; i++) {
@@ -303,6 +300,53 @@ public class AdjMatrixGraph<E> {
         } else {
             System.out.println("此图是连通的");
             return true;
+        }
+    }
+
+    /**
+     * 图的拓扑排序
+     */
+    public void topologicalSort() {
+        int n = this.vertexCount();
+        int[] indegree = new int[n];
+
+        Stack stack = new Stack();
+        String route = "拓扑排序出发：";
+        int count = 0;
+
+        for (int i = 0; i < n; i++) {
+            indegree[i] = 0;
+            // 获取每一个顶点的入度
+            for (int j = 0; j < n; j++) {
+                // 这里获取的是顶点i的入度，所以矩阵为adjMatrix[j][i]
+                if (adjMatrix[j][i] != 0 && adjMatrix[j][i] != MAX_WEIGHT) {
+                    indegree[i] += 1;
+                }
+            }
+            // 先将入度为0的顶点加入到栈中
+            if (indegree[i] == 0) {
+                stack.push(i);
+            }
+        }
+
+        while (!stack.empty()) {
+            // 从栈中删除该顶点
+            int v = (Integer) stack.pop();
+            route += "->" + v;
+            ++count;
+            // 基于广度遍历，一层层的消掉节点的入度
+            for (int w = this.getFirstNeighbor(v); w >= 0; w = this.getNextNeighbor(v, w)) {
+                // 因为该顶点被"删除"，所有以该顶点为弧尾的边的弧头的入度减一
+                indegree[w] -= 1;
+                if (indegree[w] == 0) {
+                    stack.push(w);
+                }
+            }
+        }
+        if (count < n) {
+            System.out.println("存在回路，不满足拓扑排序的条件 ");
+        } else {
+            System.out.println("实现拓扑排序 :" + route);
         }
     }
 
@@ -370,86 +414,3 @@ public class AdjMatrixGraph<E> {
         return str;
     }
 }
-
-
-//
-//
-//
-
-//
-//
-//
-//// -------六，图的拓扑排序-------------------------//
-//
-//    public void topologicalSort() {
-//
-//        int n = this.vertexCount();
-//
-//        int[] indegree = new int[n];
-//
-//        MyStack mystack = new MyStack();
-//
-//        String route = "拓扑排序出发：";
-//
-//        int count = 0;
-//
-//        for (int i = 0; i < n; i++) {
-//
-//            indegree[i] = 0;
-//
-//            for (int j = 0; j < n; j++) {//获取每一个顶点的入度
-//
-//                if (adjmatrix[j][i] != 0 && adjmatrix[j][i] != MAX_WEIGHT) {
-//
-//                    indegree[i] += 1;
-//
-//                }
-//
-//            }//先将入度为0的顶点加入到栈中
-//
-//            if (indegree[i] == 0) {
-//
-//                mystack.push(i);
-//
-//            }
-//
-//        }
-//
-//        while (!mystack.empty()) {
-//
-//            int v = (Integer) mystack.pop();//从栈中删除该顶点
-//
-//            route += "->" + v;
-//
-//            ++count;
-//
-//            for (int w = this.getFirstNeighbor(v); w >= 0; w = this
-//
-//                    .getNextNeighbor(v, w)) {
-//
-//                indegree[w] -= 1;//因为该顶点被“删除”，所有以该顶点为弧尾的边的弧头的入度减一
-//
-//                if (indegree[w] == 0) {
-//
-//                    mystack.push(w);//先将入度为0的顶点加入到栈中
-//
-//                }
-//
-//            }
-//
-//        }
-//
-//        if (count < n) {//当经历拓扑排序遍历后，所有顶点都被“删除”时（count=n），此时实现拓扑排序
-//
-//            System.out.println("存在回路，不满足拓扑排序的条件");
-//
-//        } else {
-//
-//            System.out.println("实现拓扑排序" + route);
-//
-//
-//
-//        }
-//
-//    }
-//}
