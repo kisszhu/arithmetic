@@ -257,6 +257,7 @@ public class AdjMatrixGraph<E> {
             }
             minWeight = MAX_WEIGHT;
         }
+
         for (int m = 0; m < n; m++) {
             System.out.println("从V0出发到达" + m + "点");
             if (minMatrix[m] == MAX_WEIGHT) {
@@ -352,41 +353,48 @@ public class AdjMatrixGraph<E> {
 
     /**
      * 最小生成树
-     * 普里姆算法的基本思想：取图中任意一个顶点v作为生成树的根，之后往生成树上添加新的顶点w。
+     * 树：
+     * 含有n个顶点以及含有n-1条边
+     * <p>
+     * 最小生成树：
+     * 给定一个带权的无向连通图，如何选取一颗生成树，使树上所有边上权的总和为最小，这叫最小生成树
+     * <p>
+     * 普里姆算法的基本思想：
+     * 取图中任意一个顶点v作为生成树的根，之后往生成树上添加新的顶点w。
      * 在添加的顶点w和已经在生成树上的顶点v之间必定存在一条边，并且该边的权值在所有连通顶点v和w之间的边中取值最小。
      * 之后继续往生成树上添加顶点，直至生成树上含有n-1个顶点为止。
      */
     public AdjMatrixGraph minSpanTreePrim() {
-        // n个顶点最小生成树有n-1条边
-        Edge[] mst = new Edge[this.vertexCount() - 1];
-        int un;
-        // 存放所有已访问过的顶点集合
-        List<Integer> u = new ArrayList<>();
-        // 起始点默认为标识为0的顶点
-        u.add(0);
+        int n = vertexCount();
+        // 一棵树有n个节点，有n-1条边
+        Edge[] mst = new Edge[n - 1];
+        // 定义初始集合
+        List<Integer> init = new ArrayList<>();
+        // 定义初始节点
+        init.add(0);
 
-        for (int i = 0; i < this.vertexCount() - 1; i++) {
-            // 最小边的时候，权值
-            int minWeight = MAX_WEIGHT;
-            // 最小边的时候，起点
-            int minStart = MAX_WEIGHT;
-            // 最小边的时候，终点
-            int minDest = MAX_WEIGHT;
+        // 循环原始集合
+        for (int i = 0; i < n - 1; i++) {
+            Integer startNode = 0;
+            Integer endNode = 0;
+            Integer maxWeight = Integer.MAX_VALUE;
 
-            for (int j = 0; j < u.size(); j++) {
-                un = u.get(j);
-                for (int k = 0; k < this.vertexCount(); k++) {
-                    // 获取最小值的条件：1、该边比当前情况下的最小值小；2、该边还未访问过
-                    if ((minWeight > adjMatrix[un][k]) && (!u.contains(k))) {
-                        minWeight = adjMatrix[un][k];
-                        minStart = un;
-                        minDest = k;
+            // 找到下一个最小边(在所有初始集合 和 原始集合中寻找下一个最小边)
+            for (int j = 0; j < init.size(); j++) {
+                int node = init.get(j);
+
+                for (int k = 0; k < n; k++) {
+                    // 贪心算法，找到node节点的的最小路径
+                    if (adjMatrix[node][k] < maxWeight && (!init.contains(k))) {
+                        maxWeight = adjMatrix[node][k];
+                        startNode = node;
+                        endNode = k;
                     }
                 }
             }
-            System.out.println("一次遍历所添加的最小边：它的权值，起点，终点分别为：weight:" + minWeight + " start:" + minStart + " dest:" + minDest);
-            u.add(minDest);
-            Edge e = new Edge(minStart, minDest, adjMatrix[minStart][minDest]);
+            System.out.println("一次遍历所添加的最小边：它的权值，起点，终点分别为：weight:" + maxWeight + " start:" + startNode + " dest:" + endNode);
+            init.add(endNode);
+            Edge e = new Edge(startNode, endNode, adjMatrix[startNode][endNode]);
             mst[i] = e;
         }
         // 构造最小生成树相应的图对象
