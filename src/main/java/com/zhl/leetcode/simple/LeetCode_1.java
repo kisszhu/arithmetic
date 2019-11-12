@@ -10,7 +10,7 @@ import java.util.Map;
  * @author: meilong
  * @create: 2019/11/11 09:03
  */
-public class TwoSum {
+public class LeetCode_1 {
     /**
      * 求解两数之和，除了暴力算法之外，其核心应该就是根据差值去寻找下一个数值。
      * 那么如何根据差值找到下一个数值呢？
@@ -54,7 +54,7 @@ public class TwoSum {
     }
 
     public static void main(String[] args) {
-        int[] str = new TwoSum().twoSum(new int[]{2, 7, 11, 15}, 9);
+        int[] str = new LeetCode_1().twoSum(new int[]{2, 7, 11, 15}, 9);
         System.out.println(str[0]);
         System.out.println(str[1]);
     }
