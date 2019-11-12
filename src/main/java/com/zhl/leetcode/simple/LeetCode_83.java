@@ -29,24 +29,43 @@ public class LeetCode_83 {
     }
 
     /**
+     * 第二种正确解法：通过循环遍历的方式
+     *
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicates3(ListNode head) {
+        ListNode pre = head;
+        while (head.next != null) {
+            if (head.val == head.next.val) {
+                head.next = head.next.next;
+            } else {
+                head = head.next;
+            }
+        }
+        return pre;
+    }
+
+    /**
      * 第一种错误解法：通过循环遍历，无很难解决这个问题，因为循环遍历，会遍历到链表的底，这个时候，是无法返回
      * 整个链表的，即head的值为链表3而不是1。
      *
-     * @param args
+     * @param head
      */
-//    public ListNode deleteDuplicates(ListNode head) {
-//        int val = head.val;
-//        ListNode next = head.next;
-//        while (next != null) {
-//            if (val != next.val) {
-//                val = next.val;
-//                head.next = next;
-//                head = next;
-//            }
-//            next = next.next;
-//        }
-//        return head;
-//    }
+    public ListNode deleteDuplicates2(ListNode head) {
+        int val = head.val;
+        ListNode next = head.next;
+        while (next != null) {
+            if (val != next.val) {
+                val = next.val;
+                head.next = next;
+                head = next;
+            }
+            next = next.next;
+        }
+        return head;
+    }
+
     public static void main(String[] args) {
         LeetCode_83 test = new LeetCode_83();
 
