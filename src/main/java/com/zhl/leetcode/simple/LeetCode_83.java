@@ -82,13 +82,15 @@ public class LeetCode_83 {
 
         test.deleteDuplicates(node1);
     }
-}
 
-class ListNode {
-    int val;
-    ListNode next = null;
+    static class ListNode {
+        int val;
+        ListNode next = null;
 
-    ListNode(int x) {
-        val = x;
+        ListNode(int x) {
+            val = x;
+        }
     }
+
 }
+
