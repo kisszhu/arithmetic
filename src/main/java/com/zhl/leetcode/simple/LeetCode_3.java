@@ -1,9 +1,5 @@
 package com.zhl.leetcode.simple;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * @program arithmetic
  * @description:
