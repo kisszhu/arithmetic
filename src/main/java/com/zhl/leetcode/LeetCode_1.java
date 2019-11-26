@@ -1,4 +1,4 @@
-package com.zhl.leetcode.simple;
+package com.zhl.leetcode;
 
 
 import java.util.HashMap;

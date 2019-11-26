@@ -1,4 +1,4 @@
-package com.zhl.leetcode.simple;
+package com.zhl.leetcode;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
  * @create: 2019/11/21 08:59
  */
 public class LeetCode_349 {
-    
+
     /**
      * 求数组的交集
      *
@@ -100,27 +100,6 @@ public class LeetCode_349 {
         quickSort(arr, low, j - 1);
         //递归调用右半数组
         quickSort(arr, j + 1, high);
-    }
-
-    public int[] insertionSort(int[] num) {
-        int i, j, temp;
-        // 从数组的第二个元素开始
-        for (i = 1; i < num.length; i++) {
-            // 取出第二个元素
-            temp = num[i];
-            // 用取出的元素，依次与左边的数值多比较
-            for (j = i - 1; j >= 0; j--) {
-                // 如果大于，则说明目前的顺序问题不大
-                if (temp > num[j]) {
-                    break;
-                } else {
-                    // 如果小于，则左元素右移动
-                    num[j + 1] = num[j];
-                }
-            }
-            num[j + 1] = temp;
-        }
-        return num;
     }
 
     public static void main(String[] args) {
