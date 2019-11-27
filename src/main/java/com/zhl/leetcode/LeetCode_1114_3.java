@@ -12,6 +12,9 @@ public class LeetCode_1114_3 {
 
     }
 
+    /**
+     * volatile具备多线程可见性的特性
+     */
     private volatile int flag = 1;
 
     public void first(Runnable printFirst) throws InterruptedException {

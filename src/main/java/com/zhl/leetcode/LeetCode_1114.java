@@ -9,12 +9,16 @@ import java.util.concurrent.CountDownLatch;
  * @create: 2019/11/27 09:06
  */
 public class LeetCode_1114 {
-    private CountDownLatch second = new CountDownLatch(1);
-    private CountDownLatch third = new CountDownLatch(1);
 
     public LeetCode_1114() {
 
     }
+
+    /**
+     * Java自带的，控制多线程执行顺序的屏障，似乎flink的water-mark水位 就是通过它实现的
+     */
+    private CountDownLatch second = new CountDownLatch(1);
+    private CountDownLatch third = new CountDownLatch(1);
 
     public void first(Runnable printFirst) throws InterruptedException {
 

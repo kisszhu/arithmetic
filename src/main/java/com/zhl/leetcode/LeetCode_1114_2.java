@@ -1,7 +1,5 @@
 package com.zhl.leetcode;
 
-import java.util.concurrent.CountDownLatch;
-
 /**
  * @program arithmetic
  * @description:
@@ -9,6 +7,10 @@ import java.util.concurrent.CountDownLatch;
  * @create: 2019/11/27 09:06
  */
 public class LeetCode_1114_2 {
+
+    public LeetCode_1114_2() {
+
+    }
 
     /**
      * 起到标识的作用
@@ -20,10 +22,6 @@ public class LeetCode_1114_2 {
      * 屏障
      */
     private Object lock = new Object();
-
-    public LeetCode_1114_2() {
-
-    }
 
     public void first(Runnable printFirst) throws InterruptedException {
         synchronized (lock) {
