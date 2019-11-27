@@ -67,7 +67,7 @@ public class LeetCode_1122 {
             result[index] = num;
             index++;
         }
-        
+
         return result;
     }
 
