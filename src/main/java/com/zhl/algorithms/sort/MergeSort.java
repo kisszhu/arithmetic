@@ -16,8 +16,8 @@ public class MergeSort {
     }
 
     private static void mergeSort(int[] arr, int low, int high) {
-        // 递归到叶子节点
-        if (low >= high) {
+        // 递归到叶子节点，只有一个节点，还排什么序
+        if (low == high) {
             return;
         }
 
@@ -29,7 +29,7 @@ public class MergeSort {
         // 右边排序
         mergeSort(arr, mid + 1, high);
 
-        // 归并两个有序的子序列
+        // 归并两个有序的子序列, merge不是递归操作，假设条件是左右两个数组已经排好序了
         merge(arr, low, mid, high);
 
         print(arr);
@@ -39,6 +39,7 @@ public class MergeSort {
         // temp[]是临时数组，包左不包右，所以要额外 + 1。
         int[] temp = new int[high - low + 1];
 
+        // 分配三个索引，分别表示前半段数组，后半段数组，以及temp数组
         // 左侧指针从low开始
         int left = low;
 
@@ -50,13 +51,15 @@ public class MergeSort {
 
         // 当两个子序列还有元素时，从小到大放入temp[]中
         while (left <= mid && right <= high) {
-            if (arr[left] < arr[right]) {
+            // 采用 <= 稳定性的考虑,是一个稳定算法
+            if (arr[left] <= arr[right]) {
                 temp[index++] = arr[left++];
             } else {
                 temp[index++] = arr[right++];
             }
         }
 
+        // 看前半段数据 & 后半段数组，看那个还剩下一小半
         // 要么左边没有元素
         while (left <= mid) {
             temp[index++] = arr[left++];
@@ -94,10 +97,4 @@ public class MergeSort {
         System.out.print("排序后:  ");
         print(arr);
     }
-
 }
-//
-
-//
-
-//}
