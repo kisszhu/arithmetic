@@ -26,7 +26,7 @@ public class LeetCode_148 {
     }
 
     private void mergeSort(ListNode node) {
-        
+
     }
 }
 
