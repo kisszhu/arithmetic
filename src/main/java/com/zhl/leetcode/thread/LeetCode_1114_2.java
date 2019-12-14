@@ -1,4 +1,4 @@
-package com.zhl.leetcode;
+package com.zhl.leetcode.thread;
 
 /**
  * @program arithmetic

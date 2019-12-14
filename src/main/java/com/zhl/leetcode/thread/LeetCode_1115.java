@@ -1,4 +1,4 @@
-package com.zhl.leetcode;
+package com.zhl.leetcode.thread;
 
 
 /**
@@ -37,33 +37,6 @@ public class LeetCode_1115 {
             printBar.run();
             flag = false;
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        LeetCode_1115 test = new LeetCode_1115(10);
-        test.foo(new Runnable() {
-            @Override
-            public void run() {
-                test.foo();
-            }
-        });
-
-        test.bar(new Runnable() {
-            @Override
-            public void run() {
-                test.bar();
-            }
-        });
-    }
-
-    public void foo() {
-        System.out.println("foo");
-
-    }
-
-    public void bar() {
-        System.out.println("bar");
-
     }
 }
 /**
