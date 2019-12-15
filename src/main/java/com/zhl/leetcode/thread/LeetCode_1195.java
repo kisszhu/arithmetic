@@ -21,48 +21,85 @@ public class LeetCode_1195 {
         this.n = n;
     }
 
-    private AtomicInteger num = new AtomicInteger(1);
+    /**
+     * 一般控制屏障有
+     * CountDownLatch，一般比较好，不需要做自旋
+     * 标识，比如volatile，Atomic*等，一般需要借助自旋
+     * 锁，如synchronized lock等，一般也需要自旋
+     * <p>
+     * 我目前的想法是，还是需要控制自旋，否则性能还是上不去
+     */
+
+    /**
+     * 原子变量
+     */
+    private AtomicInteger integer = new AtomicInteger(1);
+
+    /**
+     * 状态锁
+     */
+    private Object lock = new Object();
 
     // printFizz.run() outputs "fizz".
     public void fizz(Runnable printFizz) throws InterruptedException {
-        while (num.get() <= n) {
-            int value = num.get();
-            if (value % 3 == 0 && value % 15 != 0 && value <= n) {
-                printFizz.run();
-                num.getAndIncrement();
+        while (integer.get() <= n) {
+            synchronized (lock) {
+                int num = integer.get();
+                if (num % 3 == 0 && num % 15 != 0) {
+                    printFizz.run();
+                    integer.getAndIncrement();
+                    lock.notifyAll();
+                } else {
+                    lock.wait();
+                }
             }
         }
     }
 
     // printBuzz.run() outputs "buzz".
     public void buzz(Runnable printBuzz) throws InterruptedException {
-        while (num.get() <= n) {
-            int value = num.get();
-            if (value % 5 == 0 && value % 15 != 0 && value <= n) {
-                printBuzz.run();
-                num.getAndIncrement();
+        while (integer.get() <= n) {
+            synchronized (lock) {
+                int num = integer.get();
+                if (num % 5 == 0 && num % 15 != 0) {
+                    printBuzz.run();
+                    integer.getAndIncrement();
+                    lock.notifyAll();
+                } else {
+                    lock.wait();
+                }
             }
         }
     }
 
     // printFizzBuzz.run() outputs "fizzbuzz".
     public void fizzbuzz(Runnable printFizzBuzz) throws InterruptedException {
-        while (num.get() <= n) {
-            int value = num.get();
-            if (value % 15 == 0 && value <= n) {
-                printFizzBuzz.run();
-                num.getAndIncrement();
+        while (integer.get() <= n) {
+            synchronized (lock) {
+                int num = integer.get();
+                if (num % 15 == 0) {
+                    printFizzBuzz.run();
+                    integer.getAndIncrement();
+                    lock.notifyAll();
+                } else {
+                    lock.wait();
+                }
             }
         }
     }
 
     // printNumber.accept(x) outputs "x", where x is an integer.
     public void number(IntConsumer printNumber) throws InterruptedException {
-        while (num.get() <= n) {
-            int value = num.get();
-            if (value % 3 != 0 && value % 5 != 0 && value <= n) {
-                printNumber.accept(value);
-                num.getAndIncrement();
+        while (integer.get() <= n) {
+            synchronized (lock) {
+                int num = integer.get();
+                if (num % 3 != 0 && num % 5 != 0) {
+                    printNumber.accept(num);
+                    integer.getAndIncrement();
+                    lock.notifyAll();
+                } else {
+                    lock.wait();
+                }
             }
         }
     }
@@ -83,11 +120,9 @@ public class LeetCode_1195 {
         // System.out.println(num.get());
     }      // only output the numbers
 
-    public static void main(String[] arggs) throws Exception {
+    public static void main(String[] args) {
         LeetCode_1195 test = new LeetCode_1195(15);
-
-        ScheduledExecutorService executor = new ScheduledThreadPoolExecutor(4);
-
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(4);
 
         Runnable fizz = new Runnable() {
             @Override
@@ -110,7 +145,7 @@ public class LeetCode_1195 {
             }
         };
 
-        executor.execute(new Runnable() {
+        executorService.execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -121,7 +156,7 @@ public class LeetCode_1195 {
             }
         });
 
-        executor.execute(new Runnable() {
+        executorService.execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -132,7 +167,7 @@ public class LeetCode_1195 {
             }
         });
 
-        executor.execute(new Runnable() {
+        executorService.execute(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -143,7 +178,7 @@ public class LeetCode_1195 {
             }
         });
 
-        executor.execute(new Runnable() {
+        executorService.execute(new Runnable() {
             @Override
             public void run() {
                 try {
