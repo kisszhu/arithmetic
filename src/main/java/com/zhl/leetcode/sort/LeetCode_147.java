@@ -16,27 +16,42 @@ public class LeetCode_147 {
      */
     public ListNode insertionSortList(ListNode head) {
         ListNode newNode = new ListNode(0);
-        // 从第二个元素开始
-        while (head != null) {
-            ListNode temp = head.next;
-            
+        newNode.val = head.val;
 
-            // 比较当前元素之前的所有元素
-            while (head != null) {
-//                if (temp.val > head.val) {
-//                    break;
-//                } else {
-//                    // 元素右移动
-//                    head.next = head.next.next;
-//                }
-                if (temp.val > head.val && temp.val < head.next.val) {
-                    ListNode a = head.next;
-                    head.next = temp;
-                    temp.next = a;
+        while (head != null) {
+            ListNode secod = head.next;
+
+            while (newNode != null) {
+                if (secod.val > newNode.val) {
+                    break;
+                } else {
+                    
                 }
             }
-
+            head = secod;
         }
+//        ListNode newNode = new ListNode(0);
+//        // 从第二个元素开始
+//        while (head != null) {
+//            ListNode temp = head.next;
+//
+//
+//            // 比较当前元素之前的所有元素
+//            while (head != null) {
+////                if (temp.val > head.val) {
+////                    break;
+////                } else {
+////                    // 元素右移动
+////                    head.next = head.next.next;
+////                }
+//                if (temp.val > head.val && temp.val < head.next.val) {
+//                    ListNode a = head.next;
+//                    head.next = temp;
+//                    temp.next = a;
+//                }
+//            }
+//
+//        }
         return null;
     }
 
