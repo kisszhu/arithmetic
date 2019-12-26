@@ -25,7 +25,7 @@ public class LeetCode_147 {
                 if (secod.val > newNode.val) {
                     break;
                 } else {
-                    
+
                 }
             }
             head = secod;
