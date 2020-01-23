@@ -1,4 +1,4 @@
-package com.zhl.leetcode.divide;
+package com.zhl.leetcode.divide.conquer;
 
 
 import java.util.HashMap;
