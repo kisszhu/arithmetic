@@ -1,7 +1,4 @@
-package com.zhl.leetcode.dynamic.programming;
-
-import com.zhl.learn.algorithm.hash.map.level1.HashMap;
-import com.zhl.learn.algorithm.hash.map.level1.Map;
+package com.zhl.leetcode.dp;
 
 import java.util.Arrays;
 
