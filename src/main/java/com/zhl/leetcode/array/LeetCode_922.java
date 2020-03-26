@@ -1,4 +1,4 @@
-package com.zhl.leetcode;
+package com.zhl.leetcode.array;
 
 /**
  * @program arithmetic
@@ -7,15 +7,6 @@ package com.zhl.leetcode;
  * @create: 2019/11/25 09:00
  */
 public class LeetCode_922 {
-
-    /**
-     * 给定一个非负整数数组 A， A 中一半整数是奇数，一半整数是偶数。
-     * 对数组进行排序，以便当 A[i] 为奇数时，i 也是奇数；当 A[i] 为偶数时， i 也是偶数。
-     *
-     * 来源：力扣（LeetCode）
-     * 链接：https://leetcode-cn.com/problems/sort-array-by-parity-ii
-     * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
-     */
 
     /**
      * 第一种解法：通过分治的思路，得到ou ji，表示奇数&偶数
@@ -61,7 +52,6 @@ public class LeetCode_922 {
         }
         return A;
     }
-
 
     public static void main(String[] args) {
         LeetCode_922 test = new LeetCode_922();
