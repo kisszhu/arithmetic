@@ -9,6 +9,7 @@ package com.zhl.leetcode.binary.search;
 public class LeetCode_34 {
     public int[] searchRange(int[] nums, int target) {
         return null;
+
         // 二分查找mid=(left+right)/2, left=mid+1
 //        int mid, left = 0;
 //        int right = nums.length - 1;
