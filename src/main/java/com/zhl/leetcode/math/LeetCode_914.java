@@ -34,9 +34,6 @@ public class LeetCode_914 {
     public static void main(String[] args) {
         LeetCode_914 test = new LeetCode_914();
         System.out.println(test.hasGroupsSizeX(new int[]{1, 2, 3, 4, 4, 4, 4, 3, 2, 1}));
-
-//        int x = test.gcd(3, 8);
-//        System.out.println(x);
     }
 }
 
