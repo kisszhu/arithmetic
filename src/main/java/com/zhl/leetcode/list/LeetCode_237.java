@@ -23,14 +23,5 @@ public class LeetCode_237 {
     }
 
     public static void main(String[] args) {
-        LeetCode_237 test = new LeetCode_237();
-        // test.deleteNode();
     }
 }
-
-
-// * public class ListNode {
-// *     int val;
-// *     ListNode next;
-// *     ListNode(int x) { val = x; }
-// * }
