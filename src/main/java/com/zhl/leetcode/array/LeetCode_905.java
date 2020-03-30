@@ -9,7 +9,7 @@ package com.zhl.leetcode.array;
 public class LeetCode_905 {
 
     public int[] sortArrayByParity(int[] A) {
-        // 采用快慢指针
+        // 采用首尾指针
         int[] B = new int[A.length];
         int begin = 0;
         int end = A.length - 1;

@@ -12,6 +12,7 @@ public class LeetCode_922 {
      * 第一种解法：通过分治的思路，得到ou ji，表示奇数&偶数
      * 时间复杂度：O(N)
      * 空间复杂度：O(N)
+     * 采用快慢指针
      *
      * @param A
      * @return
