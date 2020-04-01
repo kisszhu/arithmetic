@@ -1,4 +1,4 @@
-package com.zhl.leetcode;
+package com.zhl.leetcode.stack;
 
 import com.zhl.algorithms.chapter1_3.Stack;
 
