@@ -1,4 +1,4 @@
-package com.zhl.leetcode.array;
+package com.zhl.leetcode.bit;
 
 /**
  * @program arithmetic
