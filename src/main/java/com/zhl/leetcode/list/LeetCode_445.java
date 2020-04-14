@@ -36,6 +36,7 @@ public class LeetCode_445 {
             int sum = carry;
             sum += stack1.isEmpty() ? 0 : stack1.pop();
             sum += stack2.isEmpty() ? 0 : stack2.pop();
+
             ListNode node = new ListNode(sum % 10);
             node.next = head;
             head = node;
@@ -43,7 +44,6 @@ public class LeetCode_445 {
         }
         return head;
     }
-
 
     static class ListNode {
         int val;
