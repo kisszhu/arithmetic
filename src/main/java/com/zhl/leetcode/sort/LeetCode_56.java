@@ -8,41 +8,35 @@ package com.zhl.leetcode.sort;
  */
 public class LeetCode_56 {
 
-//    给出一个区间的集合，请合并所有重叠的区间。
-//    示例 1:
-//    输入: [[1,3],[2,6],[8,10],[15,18]]
-//    输出: [[1,6],[8,10],[15,18]]
-//    解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
-
     public int[][] merge(int[][] intervals) {
         if (intervals == null) {
             return new int[0][0];
         }
-        int n = intervals.length;
+        int length = intervals.length;
 
-        // 找规律，"结束<开始"，则进行合并
-
-        // 合并次数
-        int cnt = 0;
-        for (int i = 0; i < n - 1; i++) {
-            for (int j = i + 1; j < n; j++) {
+        /*
+         * 矩阵的每一行，想象成每一个元素，这样的话，就转变为数组的排序了
+         */
+        int merge = 0;
+        for (int i = 0; i < length - 1; i++) {
+            for (int j = i + 1; j < length; j++) {
                 if (intervals[i][0] <= intervals[j][1] && intervals[i][1] >= intervals[j][0]) {
                     intervals[j][0] = Math.min(intervals[j][0], intervals[i][0]);
                     intervals[j][1] = Math.max(intervals[j][1], intervals[i][1]);
                     intervals[i] = null;
-                    cnt++;
+                    merge++;
                     break;
                 }
             }
         }
-        int[][] res = new int[n - cnt][2];
-        int ri = 0;
+        int[][] result = new int[length - merge][2];
+        int index = 0;
         for (int[] pair : intervals) {
             if (pair != null) {
-                res[ri++] = pair;
+                result[index++] = pair;
             }
         }
-        return res;
+        return result;
     }
 
     public static void main(String[] args) {
