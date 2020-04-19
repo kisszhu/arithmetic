@@ -32,6 +32,7 @@ public class LeetCode_208 {
             }
             cur = cur.children[c];
         }
+        // 如果没有可用的标识，那就可以创建一个标识
         cur.isEndOfWord = true;
     }
 
