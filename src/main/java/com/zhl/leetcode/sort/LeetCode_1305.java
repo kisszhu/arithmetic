@@ -78,7 +78,6 @@ public class LeetCode_1305 {
         return ansList;
     }
 
-
     public static void main(String[] args) {
         LeetCode_1305 test = new LeetCode_1305();
 
