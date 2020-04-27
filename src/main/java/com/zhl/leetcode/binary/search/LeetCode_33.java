@@ -20,7 +20,7 @@ public class LeetCode_33 {
             if (nums[mid] == target) {
                 return mid;
             }
-            // 前半部分有序，注意此处用小于等于
+            // 前半部分有序，注意此处用小于等于（保持稳定性）
             if (nums[start] <= nums[mid]) {
                 // target在前半部分
                 if (target >= nums[start] && target < nums[mid]) {
