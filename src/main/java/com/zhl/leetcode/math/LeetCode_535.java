@@ -13,6 +13,7 @@ import java.util.Map;
 public class LeetCode_535 {
 
 	Map<Integer, String> kv = new HashMap<>();
+
 	int i = 0;
 
 	public String encode(String longUrl) {
