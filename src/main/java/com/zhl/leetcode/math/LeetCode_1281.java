@@ -7,22 +7,20 @@ package com.zhl.leetcode.math;
  * @create: 2019/12/18 09:17
  */
 public class LeetCode_1281 {
+	public int subtractProductAndSum(int n) {
+		int multi = 1;
+		int sum = 0;
+		while (n != 0) {
+			int num = n % 10;
+			multi = multi * num;
+			sum = sum + num;
+			n = n / 10;
+		}
+		return multi - sum;
+	}
 
-    public int subtractProductAndSum(int n) {
-        int mult = 1;
-        int sum = 0;
-        while (n != 0) {
-            int temp = n % 10;
-            mult *= temp;
-            sum += temp;
-            n = n / 10;
-        }
-        return mult - sum;
-    }
-
-    public static void main(String[] args) {
-        LeetCode_1281 test = new LeetCode_1281();
-        int result = test.subtractProductAndSum(234);
-        System.out.println(result);
-    }
+	public static void main(String[] args) {
+		LeetCode_1281 test = new LeetCode_1281();
+		System.out.println(test.subtractProductAndSum(705));
+	}
 }
