@@ -1,4 +1,4 @@
-package com.zhl.leetcode.binary.search;
+package com.zhl.leetcode.binarySearch;
 
 /**
  * @program arithmetic
